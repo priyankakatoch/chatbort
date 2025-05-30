@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Chat Bot</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <!-- Animate.css for entrance animations -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body.login-bg {
+            background: linear-gradient(135deg, #2c085f 0%, #6d1fa8 100%);
+        }
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+        }
+        .login-card {
+            background: rgba(44, 8, 95, 0.88);
+            box-shadow: 0 8px 32px 0 #6d1fa880;
+            border-radius: 32px;
+            padding: 48px 40px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 340px;
+            max-width: 400px;
+            position: relative;
+        }
+        .modern-login-card {
+            background: rgba(60, 10, 110, 0.88);
+            box-shadow: 0 16px 48px 0 #6d1fa8cc, 0 2px 32px 0 #ff4be655;
+            border-radius: 28px;
+            padding: 34px 18px 28px 18px;
+            min-width: 300px;
+            max-width: 330px;
+            width: 100%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: max-width 0.2s, padding 0.2s, box-shadow 0.3s, transform 0.3s;
+            perspective: 900px;
+            animation: cardIn 1.1s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .modern-login-card:hover {
+            transform: scale(1.025) rotateY(2deg) rotateX(2deg);
+            box-shadow: 0 24px 64px 0 #ff4be6cc, 0 6px 36px 0 #6d1fa8bb;
+        }
+        .login-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+        .login-icon-heart {
+            font-size: 1.7rem;
+            color: #fff !important;
+            filter: drop-shadow(0 0 8px #fff6);
+            animation: heart-pulse 1.2s infinite;
+        }
+        @keyframes heart-pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 0 8px #fff6); }
+            50% { transform: scale(1.22); filter: drop-shadow(0 0 18px #fff); }
+            100% { transform: scale(1); filter: drop-shadow(0 0 8px #fff6); }
+        }
+        .login-welcome {
+            font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+            font-size: 2.3rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 12px #fff7, 0 0px 24px #ff4be6aa;
+        }
+        .login-icon-sound, .login-icon-heart {
+            font-size: 1.7rem;
+            color: #ff4be6;
+            filter: drop-shadow(0 0 8px #fff6);
+        }
+        .modern-login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .input-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.13);
+            border-radius: 22px;
+            padding: 0 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 8px #6d1fa822;
+            position: relative;
+        }
+        .input-icon {
+            display: flex;
+            align-items: center;
+            margin-right: 8px;
+            opacity: 0.9;
+        }
+        .input-eye {
+            margin-left: auto;
+            cursor: pointer;
+        }
+        .modern-login-form input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 14px 0;
+            flex: 1;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .modern-login-form input::placeholder {
+            color: #e0caffcc;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .modern-login-btn {
+            width: 100%;
+            padding: 14px 0;
+            border-radius: 22px;
+            background: linear-gradient(90deg, #ff4be6 15%, #6d1fa8 100%);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            margin-top: 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 0 24px 0 #ff4be6cc, 0 2px 14px #ff4be655;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+        .modern-login-btn:hover {
+            background: #fff;
+            color: #ff4be6;
+        }
+        .login-links {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            margin-top: 5px;
+        }
+        .login-links a {
+            color: #e0caff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .login-links a:hover {
+            color: #ff4be6;
+        }
+        .login-or {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            color: #fff9;
+            font-weight: 600;
+            margin: 18px 0 10px 0;
+            font-size: 1rem;
+        }
+        .login-or span {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, #ff4be6 10%, #fff 90%);
+            margin: 0 10px;
+            opacity: 0.4;
+        }
+        .login-socials {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            margin-top: 8px;
+        }
+        .login-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            box-shadow: 0 1.5px 8px #ff4be644;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .login-socials a:hover {
+            background: #ff4be6;
+            box-shadow: 0 0 16px #ff4be6cc;
+        }
+        .login-bot {
+            width: 110px;
+            margin-bottom: 16px;
+        }
+        .login-avatar {
+            background: linear-gradient(120deg, #ff4be6 60%, #fff 100%);
+            border-radius: 50%;
+            width: 64px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 24px #ff4be655;
+        }
+        .login-avatar svg {
+            width: 40px;
+            height: 40px;
+        }
+        .login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .login-form input {
+            border-radius: 18px;
+            border: none;
+            padding: 14px 20px;
+            font-size: 18px;
+            font-family: 'Montserrat', Arial, sans-serif;
+            margin-bottom: 6px;
+        }
+        .login-form input[type="password"] {
+            letter-spacing: 2px;
+        }
+        .login-btn-main {
+            background: linear-gradient(90deg, #ff4be6 20%, #6d1fa8 100%);
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            padding: 14px 0;
+            font-size: 20px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background 0.2s, color 0.2s;
+            box-shadow: 0 2px 14px #ff4be655;
+        }
+        .login-btn-main:hover {
+            background: #fff;
+            color: #ff4be6;
+        }
+        .login-gears {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            opacity: 0.12;
+        }
+        @media (max-width: 600px) {
+            .login-card {
+                padding: 22px 7vw 30px 7vw;
+                min-width: unset;
+            }
+        }
+    </style>
+    <style>
+        .login-container {
+            flex-direction: row;
+            gap: 40px;
+        }
+        .login-left, .login-right {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .login-left {
+            min-width: 370px;
+            padding-right: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        .login-right {
+            min-width: 340px;
+            max-width: 420px;
+        }
+        .login-bot-screen {
+            margin: 0;
+            min-width: 320px;
+            min-height: 420px;
+            margin-top: -190px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeInUpSync 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+        .login-bot-screen {
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            min-width: 180px;
+            animation: bot-float 3.5s ease-in-out infinite alternate;
+        }
+        .login-bot-laptop {
+            background: #fff;
+            border-radius: 18px 18px 12px 12px;
+            box-shadow: 0 4px 32px #6d1fa855;
+            padding: 18px 18px 0 18px;
+            position: relative;
+            width: 300px;
+            height: 240px;
+            margin-bottom: 22px;
+        }
+        .laptop-base {
+            width: 300px;
+            height: 22px;
+            background: linear-gradient(90deg, #ff4be6 10%, #fff 90%);
+            border-radius: 0 0 28px 28px;
+            margin-top: -8px;
+            box-shadow: 0 2px 22px #ff4be655;
+        }
+        .login-bot-svg {
+            display: block;
+            margin: 0 auto;
+            animation: bot-float 3.5s ease-in-out infinite alternate;
+            width: 270px !important;
+            height: 340px !important;
+        }
+        @keyframes bot-float {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-18px); }
+        }
+        .login-btn-main {
+            box-shadow: 0 0 24px 0 #ff4be6cc, 0 2px 14px #ff4be655;
+            animation: button-glow 2.5s infinite alternate;
+        }
+        @keyframes button-glow {
+            0% { box-shadow: 0 0 24px 0 #ff4be6cc, 0 2px 14px #ff4be655; }
+            100% { box-shadow: 0 0 36px 0 #ff4be6ee, 0 2px 18px #ff4be6aa; }
+        }
+        @keyframes fadeInUpSync {
+            from {
+                opacity: 0;
+                transform: translateY(60px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes cardIn {
+            0% {
+                opacity: 0;
+                transform: rotateY(20deg) scale(0.9) translateY(60px);
+            }
+            70% {
+                opacity: 1;
+                transform: rotateY(-5deg) scale(1.02) translateY(-6px);
+            }
+            100% {
+                opacity: 1;
+                transform: rotateY(0deg) scale(1) translateY(0);
+            }
+        }
+        @media (max-width: 900px) {
+            .login-container {
+                flex-direction: column;
+                gap: 0;
+            }
+            .login-bot-screen {
+                justify-content: center;
+                margin-bottom: 24px;
+                margin-top: 0;
+                min-width: 220px;
+                min-height: 220px;
+            }
+            .modern-login-card {
+                max-width: 94vw;
+                min-width: 0;
+                padding: 24px 6vw 24px 6vw;
+            }
+        }
+    </style>
+</head>
+<body class="login-bg">
+    <div class="login-container">
+        <div class="login-left">
+            <div class="login-bot-screen animate__animated animate__fadeInLeft">
+                <div class="login-bot-laptop">
+                    <svg class="login-bot-svg" width="140" height="180" viewBox="0 0 140 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                          <radialGradient id="botBodyPurple" cx="50%" cy="40%" r="70%" fx="50%" fy="30%">
+                            <stop offset="0%" stop-color="#fff"/>
+                            <stop offset="100%" stop-color="#e0caff"/>
+                          </radialGradient>
+                          <linearGradient id="botFacePurple" x1="0" y1="0" x2="1" y2="1">
+                            <stop offset="0%" stop-color="#6d1fa8"/>
+                            <stop offset="100%" stop-color="#2c085f"/>
+                          </linearGradient>
+                        </defs>
+                        <!-- Bot Head -->
+                        <ellipse cx="70" cy="50" rx="42" ry="32" fill="url(#botBodyPurple)">
+                            <animate attributeName="cy" values="50;55;50" dur="2s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <!-- Bot Faceplate -->
+                        <ellipse cx="70" cy="60" rx="30" ry="18" fill="url(#botFacePurple)"/>
+                        <!-- Eyes -->
+                        <ellipse cx="57" cy="58" rx="4" ry="4" fill="#ff4be6">
+                            <animate attributeName="ry" values="4;2;4" dur="1.6s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <ellipse cx="83" cy="58" rx="4" ry="4" fill="#ff4be6">
+                            <animate attributeName="ry" values="4;2;4" dur="1.6s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <!-- Smile -->
+                        <path d="M62 68 Q70 76 78 68" stroke="#ff4be6" stroke-width="3" fill="none">
+                            <animate attributeName="d" values="M62 68 Q70 76 78 68;M62 68 Q70 80 78 68;M62 68 Q70 76 78 68" dur="2.5s" repeatCount="indefinite"/>
+                        </path>
+                        <!-- Antennae -->
+                        <path d="M58 30 Q54 20 65 18" stroke="#ff4be6" stroke-width="3" fill="none">
+                            <animate attributeName="d" values="M58 30 Q54 20 65 18;M58 30 Q54 10 65 18;M58 30 Q54 20 65 18" dur="2s" repeatCount="indefinite"/>
+                        </path>
+                        <path d="M82 30 Q86 20 75 18" stroke="#ff4be6" stroke-width="3" fill="none">
+                            <animate attributeName="d" values="M82 30 Q86 20 75 18;M82 30 Q86 10 75 18;M82 30 Q86 20 75 18" dur="2s" repeatCount="indefinite"/>
+                        </path>
+                        <!-- Bot Body -->
+                        <ellipse cx="70" cy="120" rx="40" ry="48" fill="url(#botBodyPurple)"/>
+                        <!-- Chest Orb -->
+                        <ellipse cx="70" cy="120" rx="16" ry="20" fill="#ff4be6" opacity="0.9">
+                            <animate attributeName="rx" values="16;20;16" dur="2.5s" repeatCount="indefinite"/>
+                        </ellipse>
+                        <!-- Arms -->
+                        <rect x="15" y="90" width="14" height="52" rx="8" fill="#fff" transform="rotate(-18 15 90)">
+                            <animateTransform attributeName="transform" type="rotate" values="-18 15 90;-8 15 90;-18 15 90" dur="2s" repeatCount="indefinite"/>
+                        </rect>
+                        <rect x="111" y="90" width="14" height="52" rx="8" fill="#fff" transform="rotate(18 111 90)">
+                            <animateTransform attributeName="transform" type="rotate" values="18 111 90;8 111 90;18 111 90" dur="2s" repeatCount="indefinite"/>
+                        </rect>
+                        <!-- Shadow -->
+                        <ellipse cx="70" cy="175" rx="32" ry="8" fill="#6d1fa8" opacity="0.18">
+                            <animate attributeName="rx" values="32;40;32" dur="2.5s" repeatCount="indefinite"/>
+                        </ellipse>
+                    </svg>
+                    <div class="laptop-base"></div>
+                </div>
+            </div>
+        </div>
+        <div class="login-right">
+            <div class="login-card modern-login-card">
+                <div class="login-card-header">
+                    <span class="login-icon-sound">🔊</span>
+                    <span class="login-welcome">Welcome</span>
+                    <span class="login-icon-heart">&#10084;</span>
+                </div>
+                <form class="login-form modern-login-form">
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M12 14c-4.418 0-8 1.79-8 4v2h16v-2c0-2.21-3.582-4-8-4z"/></svg>
+                        </span>
+                        <input type="text" placeholder="Username" required>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-icon">
+                            <svg width="20" height="20" fill="#fff" viewBox="0 0 24 24"><path d="M12 17a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm6-7V7a6 6 0 1 0-12 0v3a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2zm-8-3a4 4 0 1 1 8 0v3H6V7z"/></svg>
+                        </span>
+                        <input id="login-password" type="password" placeholder="Password" required>
+                        <span class="input-icon input-eye toggle-password" style="cursor:pointer;">
+                            <svg id="eye-icon" width="22" height="22" fill="#fff" viewBox="0 0 24 24">
+                                <path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
+                            </svg>
+                        </span>
+                    </div>
+                    <button type="submit" class="modern-login-btn">Sign in</button>
+                </form>
+                <div class="login-links">
+                    <a href="#" class="forgot">Forgot Password?</a>
+                    <a href="#" class="signup">Sign up</a>
+                </div>
+                <div class="login-or">
+                    <span></span>OR<span></span>
+                </div>
+                <div class="login-socials">
+                    <a href="#" title="GitHub"><svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2.01c-3.2.7-3.87-1.39-3.87-1.39-.53-1.34-1.29-1.7-1.29-1.7-1.06-.72.08-.71.08-.71 1.17.08 1.79 1.2 1.79 1.2 1.04 1.78 2.74 1.27 3.41.97.11-.75.41-1.27.74-1.56-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.3 1.19-3.11-.12-.29-.52-1.46.11-3.04 0 0 .97-.31 3.18 1.18a11.07 11.07 0 0 1 2.9-.39c.99 0 1.99.13 2.9.39 2.2-1.49 3.17-1.18 3.17-1.18.63 1.58.23 2.75.11 3.04.74.81 1.19 1.85 1.19 3.11 0 4.43-2.69 5.41-5.25 5.7.42.36.79 1.09.79 2.2v3.26c0 .31.21.67.8.56C20.71 21.39 24 17.08 24 12c0-6.27-5.23-11.5-12-11.5z"/></svg></a>
+                    <a href="#" title="Google"><svg width="28" height="28" fill="#fff" viewBox="0 0 24 24"><path d="M21.35 11.1h-9.18v2.92h5.77c-.25 1.34-1.53 3.93-5.77 3.93-3.47 0-6.3-2.87-6.3-6.4s2.83-6.4 6.3-6.4c1.97 0 3.29.84 4.04 1.56l2.77-2.7C17.19 2.94 14.89 2 12.17 2 6.4 2 1.6 6.82 1.6 12.5s4.8 10.5 10.57 10.5c6.07 0 10.09-4.26 10.09-10.25 0-.69-.07-1.21-.17-1.65z"/></svg></a>
+                    <a href="#" title="Facebook"><svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="16" fill="#fff"/><path d="M20.5 16H18V24H15V16H13.5V13.5H15V12.25C15 10.731 15.731 9 18.25 9H20.5V11.5H19.25C18.834 11.5 18.5 11.834 18.5 12.25V13.5H20.5V16Z" fill="#4267B2"/></svg></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+// Toggle password visibility
+const togglePassword = document.querySelector('.toggle-password');
+const passwordInput = document.getElementById('login-password');
+const eyeIcon = document.getElementById('eye-icon');
+let passwordVisible = false;
+
+if(togglePassword && passwordInput && eyeIcon) {
+    togglePassword.addEventListener('click', function() {
+        passwordVisible = !passwordVisible;
+        passwordInput.type = passwordVisible ? 'text' : 'password';
+        // Swap SVG path for open/closed eye
+        if(passwordVisible) {
+            eyeIcon.innerHTML = '<path d="M12 5c-7 0-11 7-11 7s4 7 11 7 11-7 11-7-4-7-11-7zm0 12c-2.8 0-5-2.2-5-5s2.2-5 5-5 5 2.2 5 5-2.2 5-5 5zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/><circle cx="12" cy="12" r="2" fill="#fff"/>';
+        } else {
+            eyeIcon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8zm11 5c-2.761 0-5-2.239-5-5s2.239-5 5-5 5 2.239 5 5-2.239 5-5 5zm-7.071-7.071l14.142 14.142" stroke="#fff" stroke-width="2" fill="none"/>';
+        }
+    });
+}
+</script>
+</html>

@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Start Now - Digital Solution</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .startnow-navbar {
+            width: 100vw;
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            z-index: 10;
+            background: linear-gradient(120deg, #2c085f 0%, #6d1fa8 100%);
+            padding: 0 0 0 0;
+            box-shadow: none;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            height: 72px;
+        }
+        .startnow-navbar ul {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            margin: 0 48px 0 0;
+            padding: 0;
+            list-style: none;
+        }
+        .startnow-navbar li {
+            display: flex;
+            align-items: center;
+        }
+        .startnow-navbar a {
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 18px;
+            transition: background 0.18s, color 0.18s;
+        }
+        .startnow-navbar a.active, .startnow-navbar a:hover {
+            color: #60e7ff;
+            background: rgba(255,255,255,0.06);
+        }
+        .logout-btn a {
+            background: rgba(255,255,255,0.16);
+            color: #fff;
+            border-radius: 22px;
+            padding: 10px 26px 10px 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 12px #2c085f22;
+            transition: background 0.18s, color 0.18s;
+        }
+        .logout-btn a:hover {
+            background: #fff;
+            color: #6d1fa8;
+        }
+        .logout-btn .logout-icon {
+            display: flex;
+            align-items: center;
+            margin-right: 4px;
+        }
+        @media (max-width: 900px) {
+            .startnow-navbar ul {
+                gap: 12px;
+                margin: 0 10px 0 0;
+            }
+            .startnow-navbar a {
+                font-size: 1rem;
+                padding: 7px 10px;
+            }
+            .logout-btn a {
+                padding: 7px 16px 7px 10px;
+            }
+        }
+
+        body {
+            background: linear-gradient(120deg, #2c085f 0%, #6d1fa8 100%);
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .startnow-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 60px;
+            width: 90vw;
+            max-width: 1200px;
+            opacity: 0;
+            animation: fadeInPage 1.1s cubic-bezier(0.23, 1, 0.32, 1) 0.1s forwards;
+        }
+        .startnow-left {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        .cloud-bg {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 0;
+            width: 420px;
+            max-width: 90vw;
+            opacity: 0.85;
+        }
+        .startnow-bot {
+            position: relative;
+            z-index: 1;
+            width: 320px;
+            height: auto;
+            margin-left: 40px;
+            opacity: 0;
+            animation: botFloatIn 1.2s cubic-bezier(0.23, 1, 0.32, 1) 0.25s forwards, botFloat 3.2s ease-in-out 1.45s infinite alternate;
+        }
+        .startnow-icons {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .startnow-icons svg {
+            opacity: 0;
+            animation: iconFloatIn 1s cubic-bezier(0.23, 1, 0.32, 1) forwards, iconFloat 4s ease-in-out 1.3s infinite alternate;
+        }
+        .startnow-icons svg:nth-child(1) { animation-delay: 0.6s, 1.3s; }
+        .startnow-icons svg:nth-child(2) { animation-delay: 0.75s, 1.3s; }
+        .startnow-icons svg:nth-child(3) { animation-delay: 0.9s, 1.3s; }
+        .startnow-icons svg:nth-child(4) { animation-delay: 1.05s, 1.3s; }
+        .startnow-icons svg:nth-child(5) { animation-delay: 1.2s, 1.3s; }
+        .startnow-icons svg {
+            position: absolute;
+            opacity: 0.92;
+        }
+        .startnow-right {
+            flex: 1;
+            padding-left: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+            transform: translateX(48px);
+            animation: rightFadeIn 1.1s cubic-bezier(0.23, 1, 0.32, 1) 1.05s forwards;
+        }
+        .startnow-title {
+            font-family: 'Orbitron', Arial, sans-serif;
+            font-size: 2.7rem;
+            font-weight: 700;
+            margin-bottom: 18px;
+            letter-spacing: 1px;
+        }
+        .startnow-desc {
+            color: #e0caff;
+            font-size: 1.08rem;
+            margin-bottom: 32px;
+            line-height: 1.7;
+            max-width: 480px;
+        }
+        .startnow-btn {
+            background: linear-gradient(90deg, #ff4be6 10%, #6d1fa8 100%);
+            border: none;
+            border-radius: 22px;
+            color: #fff;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 700;
+            padding: 10px 32px;
+            min-width: 180px;
+            max-width: 320px;
+            width: 220px;
+            cursor: pointer;
+            box-shadow: 0 2px 18px #ff4be655;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+        }
+        .startnow-btn:hover {
+            background: #fff;
+            color: #ff4be6;
+            box-shadow: 0 0 24px #ff4be6cc;
+        }
+        @keyframes fadeInPage {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes botFloatIn {
+            from { opacity: 0; transform: translateY(70px) scale(0.96); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes botFloat {
+            from { transform: translateY(0); }
+            to { transform: translateY(-24px); }
+        }
+        @keyframes iconFloatIn {
+            from { opacity: 0; transform: translateY(40px) scale(0.92); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+        @keyframes iconFloat {
+            from { transform: translateY(0); }
+            to { transform: translateY(-12px); }
+        }
+        @keyframes rightFadeIn {
+            from { opacity: 0; transform: translateX(48px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @media (max-width: 900px) {
+            .startnow-container {
+                flex-direction: column;
+                gap: 24px;
+                width: 98vw;
+            }
+            .startnow-left {
+                margin-bottom: 24px;
+            }
+            .startnow-right {
+                padding-left: 0;
+                align-items: center;
+                text-align: center;
+            }
+        }
+        @keyframes popupIn {
+            from { opacity:0; transform:scale(0.92) translateY(40px); }
+            to { opacity:1; transform:scale(1) translateY(0); }
+        }
+        #popupModal[style*='display: flex'] #popupContent { animation: popupIn 0.5s cubic-bezier(.42,1.7,.57,.93); }
+        #popupModal[style*='display: none'] #popupContent { animation: none; }
+        #popupModal::-webkit-scrollbar { display:none; }
+        .upload-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 6px;
+            cursor: pointer;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6d1fa8 10%, #ff4be6 100%);
+            box-shadow: 0 2px 10px #ff4be655;
+            transition: background 0.2s, transform 0.15s;
+        }
+        .upload-btn:hover {
+            background: #ff4be6;
+            transform: scale(1.08);
+        }
+        .upload-btn svg {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <nav class="startnow-navbar">
+        <ul>
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Contact</a></li>
+            <li class="logout-btn">
+                <a href="#">
+                    <span class="logout-icon">
+                        <svg width="20" height="20" fill="none" viewBox="0 0 24 24"><path d="M16 17v1a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v1" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7 12h10m0 0-3-3m3 3-3 3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <div class="startnow-container">
+        <div class="startnow-left">
+            <!-- Cloud background -->
+            <svg class="cloud-bg" viewBox="0 0 500 320" fill="none">
+                <ellipse cx="250" cy="160" rx="220" ry="120" fill="#ae8cff" opacity="0.18"/>
+                <ellipse cx="250" cy="180" rx="180" ry="90" fill="#fff" opacity="0.13"/>
+            </svg>
+            <!-- Bot illustration -->
+            <svg class="startnow-bot" viewBox="0 0 340 400" fill="none">
+                <ellipse cx="170" cy="280" rx="130" ry="140" fill="#fff" filter="url(#glow)"/>
+                <ellipse cx="170" cy="130" rx="100" ry="100" fill="#fff"/>
+                <ellipse cx="170" cy="130" rx="80" ry="60" fill="#2c085f"/>
+                <ellipse cx="170" cy="130" rx="13" ry="13" fill="#ff4be6"/>
+                <ellipse cx="140" cy="120" rx="12" ry="7" fill="#ff4be6"/>
+                <ellipse cx="200" cy="120" rx="12" ry="7" fill="#ff4be6"/>
+                <ellipse cx="170" cy="330" rx="45" ry="30" fill="#ff4be6" opacity="0.7"/>
+                <!-- Hands -->
+                <ellipse cx="70" cy="250" rx="28" ry="15" fill="#fff" transform="rotate(-30 70 250)"/>
+                <ellipse cx="270" cy="250" rx="28" ry="15" fill="#fff" transform="rotate(30 270 250)"/>
+                <!-- Arms -->
+                <rect x="35" y="180" width="28" height="100" rx="14" fill="#fff" transform="rotate(-18 35 180)"/>
+                <rect x="277" y="180" width="28" height="100" rx="14" fill="#fff" transform="rotate(18 277 180)"/>
+                <defs>
+                    <filter id="glow" x="0" y="70" width="340" height="260" filterUnits="userSpaceOnUse">
+                        <feGaussianBlur stdDeviation="24" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
+            <!-- Floating icons -->
+            <div class="startnow-icons">
+                <svg width="48" height="48" style="left: 10px; top: 10px;"><circle cx="24" cy="24" r="22" fill="#fff" opacity="0.16"/><path d="M18 24h12M24 18v12" stroke="#ff4be6" stroke-width="2" stroke-linecap="round"/></svg>
+                <svg width="48" height="48" style="left: 60px; top: 120px;"><circle cx="24" cy="24" r="22" fill="#fff" opacity="0.16"/><rect x="14" y="14" width="20" height="20" rx="4" fill="#ff4be6" opacity="0.5"/></svg>
+                <svg width="48" height="48" style="left: 160px; top: 40px;"><circle cx="24" cy="24" r="22" fill="#fff" opacity="0.16"/><path d="M20 28c0-2.209 3.582-4 8-4s8 1.791 8 4" stroke="#ff4be6" stroke-width="2"/></svg>
+                <svg width="48" height="48" style="left: 200px; top: 160px;"><circle cx="24" cy="24" r="22" fill="#fff" opacity="0.16"/><path d="M24 14v20" stroke="#ff4be6" stroke-width="2"/></svg>
+                <svg width="48" height="48" style="left: 80px; top: 200px;"><circle cx="24" cy="24" r="22" fill="#fff" opacity="0.16"/><rect x="16" y="16" width="16" height="16" rx="4" fill="#ff4be6" opacity="0.5"/></svg>
+            </div>
+        </div>
+        <div class="startnow-right">
+            <div class="startnow-title">THE DIGITAL SOLUTION</div>
+            <div class="startnow-desc">
+                Meet your smart assistant, designed to simplify your digital life. Whether it's answering questions, helping with tasks, or providing instant support, this bot is here 24/7 to assist you.
+
+From customer service to personal reminders, it's packed with powerful features that adapt to your needs. Stay connected, get more done, and experience the future of AI with ease.
+            </div>
+            <button class="startnow-btn">Start Now</button>
+        </div>
+    </div>
+    <!-- Popup Modal -->
+    <div id="popupModal" style="display:none; position:fixed; top:0; left:0; width:100vw; height:100vh; background:rgba(44,8,95,0.85); z-index:9999; align-items:center; justify-content:center; animation: fadeInPage 0.4s;">
+        <div id="popupContent" style="background:#2c085f; color:#fff; border-radius:28px; box-shadow:0 8px 48px #ff4be655; max-width:540px; width:90vw; padding:38px 36px 32px 36px; position:relative; text-align:left; animation: popupIn 0.5s cubic-bezier(.42,1.7,.57,.93);">
+            <button onclick="closePopup()" style="position:absolute; top:18px; right:22px; background:none; border:none; color:#ff4be6; font-size:2rem; cursor:pointer;">&times;</button>
+            <div id="popupInner"></div>
+        </div>
+    </div>
+    <script>
+    const aboutContent = `
+        <h2 style='color:#ff4be6; font-family:Orbitron,Arial,sans-serif; font-size:2rem; margin-bottom:1.2rem; text-align:center;'>About AI Assistant</h2>
+        <div style='font-size:1.15rem; color:#e0caff; margin-bottom:1.2rem;'>
+            This AI Assistant is a text and voice-enabled virtual companion designed for natural and intelligent interactions. It offers instant responses, smart browser tab control (like WhatsApp and other sites), image and file analysis, and emotion-aware conversations. With 24/7 availability, it brings personalized, human-like support to all your tasks.
+        </div>
+        <div style='margin-bottom:0.7rem; color:#fff; font-weight:600;'>Key Features:</div>
+        <ul style='color:#e0caff; font-size:1.08rem; margin-left:1.2rem; margin-bottom:0.5rem;'>
+            <li>Instant text and voice-based responses</li>
+            <li>Opens browser tabs through commands</li>
+            <li>Emotion detection for expressive interactions</li>
+            <li>Image and file analysis</li>
+            <li>Personalized, dynamic replies</li>
+            <li>Always active and ready to help</li>
+        </ul>
+    `;
+    const servicesContent = `
+        <h2 style='color:#ff4be6; font-family:Orbitron,Arial,sans-serif; font-size:2rem; margin-bottom:1.2rem; text-align:center;'>Our Services</h2>
+        <ul style='color:#e0caff; font-size:1.13rem; margin-left:1.2rem; margin-bottom:0.5rem;'>
+            <li>24/7 AI-powered support</li>
+            <li>Smart reminders and scheduling</li>
+            <li>File and image analysis</li>
+            <li>Emotion-aware chat</li>
+            <li>Browser automation (WhatsApp, etc.)</li>
+            <li>Personalized recommendations</li>
+        </ul>
+    `;
+    const contactContent = `
+        <h2 style='color:#ff4be6; font-family:Orbitron,Arial,sans-serif; font-size:2rem; margin-bottom:1.2rem; text-align:center;'>Contact Us</h2>
+        <div style='font-size:1.13rem; color:#e0caff; margin-bottom:1.2rem;'>
+            For support, feedback, or business inquiries:<br>
+            <b>Email:</b> support@youraiassistant.com<br>
+            <b>Phone:</b> +1-234-567-8901<br>
+            <b>Live chat</b> available 24/7
+        </div>
+    `;
+    function showPopup(content) {
+        document.getElementById('popupInner').innerHTML = content;
+        document.getElementById('popupModal').style.display = 'flex';
+    }
+    function closePopup() {
+        document.getElementById('popupModal').style.display = 'none';
+    }
+    document.querySelectorAll('.startnow-navbar a').forEach(link => {
+        link.addEventListener('click', function(e) {
+            const text = this.textContent.trim().toLowerCase();
+            if (text === 'about') { e.preventDefault(); showPopup(aboutContent); }
+            if (text === 'services') { e.preventDefault(); showPopup(servicesContent); }
+            if (text === 'contact') { e.preventDefault(); showPopup(contactContent); }
+            if (text === 'home') { e.preventDefault(); window.scrollTo({top:0,behavior:'smooth'}); }
+        });
+    });
+    document.querySelector('.startnow-btn').onclick = function() {
+        window.location.href = 'assistant_chat_select.html';
+    };
+    </script>
+</body>
+</html>

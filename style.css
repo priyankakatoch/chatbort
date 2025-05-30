@@ -1,0 +1,227 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #2c085f 0%, #6d1fa8 100%);
+    color: #fff;
+    overflow-x: hidden;
+}
+
+.navbar {
+    max-width: 600px;
+    padding: 30px 0 0 0;
+    z-index: 2;
+    position: relative;
+    background: transparent;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    justify-content: flex-start;
+    padding-left: 160px;
+    margin: 0;
+}
+
+.navbar ul li a {
+    color: #f3caff;
+    text-decoration: none;
+    font-size: 26px;
+    letter-spacing: 2.5px;
+    transition: color 0.2s, text-shadow 0.2s;
+    font-family: 'Montserrat', Arial, sans-serif;
+    text-shadow: 0 0 10px #6d1fa8cc;
+}
+
+.navbar ul li a:hover {
+    color: #ff4be6;
+    text-shadow: 0 0 16px #ff4be6cc;
+}
+
+.landing-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    padding: 0 5vw;
+    position: relative;
+    z-index: 1;
+    overflow: visible;
+}
+
+.landing-content {
+    flex: 1;
+    max-width: 500px;
+    z-index: 2;
+    position: relative;
+    margin-left: 80px;
+}
+
+@media (max-width: 900px) {
+    .landing-content {
+        margin-left: 0;
+    }
+}
+
+.gradient-text {
+    font-family: 'Orbitron', 'Montserrat', Arial, sans-serif;
+    font-size: 84px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    background: linear-gradient(90deg, #ff4be6 10%, #fff 50%, #6d1fa8 90%);
+    background-size: 200% auto;
+    color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+    animation: gradient-move 3s ease-in-out infinite alternate;
+    text-shadow: 0 6px 32px #8e44ad55;
+    margin-bottom: 26px;
+}
+
+@keyframes gradient-move {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+.subtitle {
+    font-size: 28px;
+    color: #e0caff;
+    margin-bottom: 40px;
+    max-width: 400px;
+    font-family: 'Montserrat', Arial, sans-serif;
+    opacity: 0.95;
+}
+
+.button-group {
+    display: flex;
+    gap: 18px;
+}
+
+.login-btn, .signup-btn {
+    font-size: 22px;
+    padding: 18px 46px;
+    border-radius: 22px;
+    border: 2px solid #ff4be6;
+    background: linear-gradient(90deg, #ff4be6 20%, #6d1fa8 100%);
+    color: #fff;
+    cursor: pointer;
+    font-weight: 600;
+    font-family: 'Montserrat', Arial, sans-serif;
+    transition: background 0.25s, color 0.25s, box-shadow 0.25s, transform 0.15s;
+    outline: none;
+    box-shadow: 0 0 0 0 #ff4be6;
+    position: relative;
+    z-index: 1;
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background: #fff;
+    color: #ff4be6;
+    box-shadow: 0 0 24px 0 #ff4be6cc;
+    transform: translateY(-2px) scale(1.04);
+}
+
+.login-btn:hover, .signup-btn:hover {
+    background: #fff;
+    color: #ff4be6;
+    box-shadow: 0 0 24px 0 #ff4be6cc;
+    transform: translateY(-2px) scale(1.04);
+}
+
+.signup-btn:hover {
+    background: #fff;
+    color: #ff4be6;
+}
+
+.bot-image {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 270px;
+    z-index: 2;
+    position: relative;
+}
+
+.svg-bot {
+    filter: drop-shadow(0 0 40px #ff4be6aa) drop-shadow(0 0 12px #fff8);
+    animation: bot-float 3s ease-in-out infinite alternate;
+    box-shadow: 0 0 18px 0 #ff4be655;
+}
+
+@keyframes bot-float {
+    0% { transform: translateY(0px) scale(1); }
+    100% { transform: translateY(-16px) scale(1.03); }
+}
+
+/* Add glowing animated background orbs */
+body::before {
+    content: '';
+    position: fixed;
+    left: -120px; top: 60vh;
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, #ff4be6 0%, #6d1fa8 80%, transparent 100%);
+    opacity: 0.18;
+    z-index: 0;
+    filter: blur(8px);
+    animation: orb-move 8s infinite alternate;
+}
+
+body::after {
+    content: '';
+    position: fixed;
+    right: -100px; top: 10vh;
+    width: 260px; height: 260px;
+    background: radial-gradient(circle, #fff 0%, #e0caff 80%, transparent 100%);
+    opacity: 0.12;
+    z-index: 0;
+    filter: blur(8px);
+    animation: orb-move2 6s infinite alternate;
+}
+
+@keyframes orb-move {
+    0% { top: 60vh; left: -120px; }
+    100% { top: 40vh; left: -80px; }
+}
+@keyframes orb-move2 {
+    0% { top: 10vh; right: -100px; }
+    100% { top: 30vh; right: -60px; }
+}
+
+@media (max-width: 900px) {
+    .landing-container {
+        flex-direction: column-reverse;
+        height: auto;
+        padding: 40px 5vw 0 5vw;
+    }
+    .bot-image {
+        margin-bottom: 40px;
+    }
+    .landing-content {
+        max-width: 100%;
+        text-align: center;
+    }
+    .navbar ul {
+        justify-content: center;
+        padding-left: 0;
+    }
+}
+
+.chat-main-container {
+    gap: 32px;
+    width: 98vw;
+    max-width: 1600px;
+    min-height: 90vh;
+}
+
+.chat-box {
+    width: 760px;
+    height: 620px;
+}
+
+.message {
+    font-size: 1rem;
+}
+

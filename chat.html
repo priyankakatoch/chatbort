@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat With Me - AI Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #2c085f 0%, #6d1fa8 100%);
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        .chat-main-container {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 64px;
+            width: 92vw;
+            max-width: 1400px;
+            min-height: 85vh;
+            position: relative;
+            z-index: 1;
+        }
+        .chat-bot-side {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 340px;
+        }
+        .big-bot-svg {
+            width: 340px;
+            height: 400px;
+            display: block;
+            filter: drop-shadow(0 0 80px #ff4be6cc) drop-shadow(0 0 32px #fff8);
+            animation: bot-float 3.5s ease-in-out infinite alternate;
+            transition: transform 0.25s;
+        }
+        .chat-box-side {
+            flex: 1.2;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            margin-left: 0;
+        }
+        .chat-box {
+            background: rgba(255,255,255,0.13);
+            border-radius: 32px;
+            box-shadow: 0 8px 48px #6d1fa855, 0 0px 120px #fff2 inset;
+            padding: 44px 36px 28px 36px;
+            width: 640px;
+            height: 520px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+            backdrop-filter: blur(14px) saturate(1.3);
+            animation: fadeInRight 1.2s cubic-bezier(.42,1.7,.57,.93) 0.3s both;
+        }
+        @media (max-width: 1000px) {
+            .chat-main-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 32px;
+                justify-content: center;
+            }
+            .chat-bot-side, .chat-box-side {
+                justify-content: center;
+                margin-left: 0 !important;
+            }
+            .big-bot-svg {
+                width: 220px;
+                height: 260px;
+            }
+            .chat-box {
+                max-width: 98vw;
+            }
+        }
+        @media (max-width: 800px) {
+            .chat-box {
+                width: 98vw;
+                min-width: 0;
+                height: 90vw;
+                min-height: 340px;
+                max-height: 98vh;
+                padding: 20px 6vw 18px 6vw;
+            }
+        }
+        @media (max-width: 600px) {
+            .chat-box {
+                width: 98vw;
+                min-width: 0;
+                height: 90vw;
+                min-height: 340px;
+                max-height: 98vh;
+                padding: 20px 6vw 18px 6vw;
+            }
+        }
+        .messages {
+            flex: 1 1 auto;
+            overflow-y: auto;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            animation: fadeInUp 1.1s cubic-bezier(.42,1.7,.57,.93) 0.7s both;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE 10+ */
+            min-height: 0;
+            padding: 8px 0 8px 0;
+        }
+        .messages::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+        .message {
+            display: inline-block;
+            position: relative;
+            max-width: 82%;
+            min-width: 80px;
+            padding: 22px 32px;
+            border-radius: 22px 22px 22px 22px;
+            font-size: 1.18rem;
+            line-height: 1.7;
+            margin: 18px 0 18px 0;
+            box-shadow: 0 4px 24px #fff2, 0 0px 32px #ff4be622;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInMsg 0.7s cubic-bezier(.42,1.7,.57,.93) forwards;
+            text-align: left;
+            word-break: break-word;
+            background: rgba(255,255,255,0.13);
+            color: #fff;
+        }
+        .message.user {
+            align-self: flex-end;
+            background: #b36fff;
+            color: #fff;
+            border-radius: 18px 18px 18px 18px;
+            margin-left: auto;
+        }
+        .message.bot {
+            align-self: flex-start;
+            background: #a16ae8;
+            color: #fff;
+            border-radius: 18px 18px 18px 18px;
+            margin-right: auto;
+        }
+        .message.file {
+            background: #c084fc;
+            color: #fff;
+            font-size: 1.05rem;
+            border-radius: 16px;
+            padding: 12px 24px;
+            margin: 10px 0 10px 0;
+            align-self: flex-end;
+            max-width: 70%;
+        }
+        .selected-file {
+            color: #fff;
+            font-size: 1.05rem;
+            margin-top: 8px;
+            margin-left: 8px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 7px 18px;
+            display: inline-block;
+        }
+        .chat-input-row {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            margin-top: 12px;
+            padding: 0 8px 0 0;
+            background: rgba(255,255,255,0.08);
+            border-radius: 18px;
+        }
+        .chat-input {
+            flex: 1;
+            padding: 16px 20px;
+            border-radius: 18px;
+            border: none;
+            font-size: 1.13rem;
+            font-family: 'Montserrat', Arial, sans-serif;
+            background: transparent;
+            color: #fff;
+            outline: none;
+            box-shadow: none;
+        }
+        .chat-input::placeholder {
+            color: #bfa6e6;
+            opacity: 0.7;
+        }
+        .send-btn, .upload-btn {
+            background: linear-gradient(135deg, #ff4be6 10%, #6d1fa8 100%);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            min-width: 48px;
+            min-height: 48px;
+            max-width: 48px;
+            max-height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            box-shadow: 0 2px 18px #ff4be655, 0 0px 32px #ff4be622;
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.18s;
+            outline: none;
+            margin-left: 8px;
+            margin-right: 2px;
+            padding: 0;
+        }
+        .send-btn svg, .upload-btn svg {
+            width: 24px;
+            height: 24px;
+            display: block;
+        }
+        .send-btn:hover, .upload-btn:hover {
+            background: #fff;
+            color: #ff4be6;
+            transform: scale(1.11);
+            box-shadow: 0 4px 32px #ff4be6cc;
+        }
+        .upload-btn input[type="file"] {
+            display: none;
+        }
+        .chat-input-row:focus-within {
+            box-shadow: 0 0 0 2px #ff4be6;
+        }
+        @keyframes bot-float {
+            0% { transform: translateY(0) scale(1); }
+            100% { transform: translateY(-22px) scale(1.03); }
+        }
+        @keyframes fadeInRight {
+            0% { opacity: 0; transform: translateX(60px); }
+            100% { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInMsg {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+        .dot {
+            animation: blink 1.2s infinite both;
+            opacity: 0.6;
+        }
+        .dot:nth-child(2) { animation-delay: 0.2s; }
+        .dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes blink {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+        .mic-btn {
+            background: linear-gradient(135deg, #ff4be6 10%, #6d1fa8 100%);
+            border: none;
+            border-radius: 50%;
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            font-size: 1.6rem;
+            cursor: pointer;
+            margin-right: 8px;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .mic-btn:active, .mic-btn[aria-pressed="true"] {
+            background: #ff4be6;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-main-container">
+        <div class="chat-bot-side">
+            <!-- Bot with glowing background -->
+            <svg class="big-bot-svg" viewBox="0 0 400 480" fill="none">
+                <defs>
+                    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" stop-color="#fff" stop-opacity="0.7"/>
+                        <stop offset="100%" stop-color="#a16ae8" stop-opacity="0.18"/>
+                    </radialGradient>
+                    <radialGradient id="botBody" cx="50%" cy="40%" r="70%" fx="50%" fy="30%">
+                        <stop offset="0%" stop-color="#fff"/>
+                        <stop offset="100%" stop-color="#e0caff"/>
+                    </radialGradient>
+                    <linearGradient id="botFace" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="#6d1fa8"/>
+                        <stop offset="100%" stop-color="#2c085f"/>
+                    </linearGradient>
+                </defs>
+                <!-- Glow -->
+                <ellipse cx="200" cy="240" rx="180" ry="220" fill="url(#glow)"/>
+                <!-- Bot Body -->
+                <ellipse cx="200" cy="320" rx="110" ry="140" fill="#e4d6ff"/>
+                <!-- Bot Head -->
+                <ellipse cx="200" cy="140" rx="90" ry="80" fill="#fff"/>
+                <!-- Bot Faceplate -->
+                <ellipse cx="200" cy="155" rx="70" ry="45" fill="url(#botFace)"/>
+                <!-- Eyes (sleeping) -->
+                <path d="M175 156 Q180 165 200 155" stroke="#ff4be6" stroke-width="7" stroke-linecap="round" fill="none"/>
+                <path d="M230 156 Q240 165 250 155" stroke="#ff4be6" stroke-width="7" stroke-linecap="round" fill="none"/>
+                <!-- Antenna -->
+                <ellipse cx="200" cy="55" rx="20" ry="20" fill="#fff"/>
+                <ellipse cx="200" cy="40" rx="14" ry="14" fill="#ff4be6"/>
+                <!-- Arms -->
+                <rect x="110" y="260" width="30" height="100" rx="18" fill="#fff" transform="rotate(-20 110 260)"/>
+                <rect x="260" y="260" width="30" height="100" rx="18" fill="#fff" transform="rotate(20 260 260)"/>
+            </svg>
+        </div>
+        <div class="chat-box-side">
+            <div class="chat-box">
+                <div class="messages" id="messages">
+                    <div class="message bot">Hello! I'm your AI assistant. How can I help you today?</div>
+                </div>
+                <div class="chat-input-row">
+                    <input class="chat-input" id="chatInput" type="text" placeholder="Type your message..." autocomplete="off" />
+                    <button class="mic-btn" id="micBtn" aria-label="Speak" type="button">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <circle cx="12" cy="12" r="10" fill="#ff4be6" opacity="0.7"/>
+                            <path d="M12 7v6m0 0a3 3 0 0 0 3-3V9a3 3 0 0 0-6 0v1a3 3 0 0 0 3 3zm0 0v2m-4 0h8" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                    </button>
+                    <button class="send-btn" id="sendBtn" aria-label="Send">
+                        <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 28L28 16L4 4V13L20 16L4 19V28Z" fill="currentColor"/>
+                        </svg>
+                    </button>
+                    <label class="upload-btn" for="fileUpload" title="Upload file">
+                        <svg viewBox="0 0 32 32" width="24" height="24" fill="none">
+                            <rect x="8" y="14" width="16" height="10" rx="2" fill="#fff" fill-opacity="0.18"/>
+                            <path d="M16 6v14M16 6l-5 5M16 6l5 5" stroke="#ff4be6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <input type="file" id="fileUpload" accept=".pdf,image/*" />
+                    </label>
+                </div>
+                <div id="selectedFile" class="selected-file" style="display:none;"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const messages = document.getElementById('messages');
+        const chatInput = document.getElementById('chatInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const fileUpload = document.getElementById('fileUpload');
+        const selectedFile = document.getElementById('selectedFile');
+        let isWaiting = false;
+
+        function addMessage(text, sender = 'user') {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = 'message ' + sender;
+            msgDiv.textContent = text;
+            messages.appendChild(msgDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function addFileMessage(filename) {
+            const fileDiv = document.createElement('div');
+            fileDiv.className = 'message file';
+            fileDiv.textContent = 'Uploaded file: ' + filename;
+            messages.appendChild(fileDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function showLoading() {
+            const loadingDiv = document.createElement('div');
+            loadingDiv.className = 'message bot';
+            loadingDiv.id = 'loadingMsg';
+            loadingDiv.innerHTML = "I'm processing your message...";
+            messages.appendChild(loadingDiv);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function removeLoading() {
+            const loadingDiv = document.getElementById('loadingMsg');
+            if (loadingDiv) loadingDiv.remove();
+        }
+
+        // NOTE: You must insert your real OpenAI API key below. 401 errors mean the key is missing or invalid.
+        const apiKey = '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';
+
+        async function fetchAIResponse(userText) {
+            const endpoint = 'https://api.openai.com/v1/chat/completions';
+            try {
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + apiKey,
+                    },
+                    body: JSON.stringify({
+                        model: 'gpt-3.5-turbo',
+                        messages: [
+                            { role: 'system', content: 'You are a helpful AI assistant.' },
+                            { role: 'user', content: userText }
+                        ],
+                        max_tokens: 512,
+                        temperature: 0.7
+                    })
+                });
+                const data = await response.json();
+                if (data.choices && data.choices[0] && data.choices[0].message) {
+                    return data.choices[0].message.content.trim();
+                } else {
+                    return 'Sorry, I could not get a response.';
+                }
+            } catch (err) {
+                return 'Error: Unable to connect to AI service.';
+            }
+        }
+
+        async function handleSend() {
+            if (isWaiting) return;
+            const text = chatInput.value.trim();
+            if (!text) return;
+            addMessage(text, 'user');
+            chatInput.value = '';
+            isWaiting = true;
+            showLoading();
+            const aiReply = await fetchAIResponse(text);
+            removeLoading();
+            addMessage(aiReply, 'bot');
+            isWaiting = false;
+        }
+
+        sendBtn.addEventListener('click', handleSend);
+        chatInput.addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                handleSend();
+            }
+        });
+
+        // File upload logic
+        fileUpload.addEventListener('change', function() {
+            if (fileUpload.files.length > 0) {
+                const fileName = fileUpload.files[0].name;
+                selectedFile.textContent = 'Selected file: ' + fileName;
+                selectedFile.style.display = 'block';
+                addFileMessage(fileName);
+            } else {
+                selectedFile.textContent = '';
+                selectedFile.style.display = 'none';
+            }
+        });
+
+        const micBtn = document.getElementById('micBtn');
+        let recognition;
+        if ('webkitSpeechRecognition' in window) {
+            recognition = new webkitSpeechRecognition();
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            recognition.onstart = function() {
+                micBtn.style.background = '#ff4be6';
+                chatInput.placeholder = "Listening...";
+            };
+            recognition.onend = function() {
+                micBtn.style.background = '';
+                chatInput.placeholder = "Type your message...";
+            };
+            recognition.onresult = function(event) {
+                const transcript = event.results[0][0].transcript;
+                chatInput.value = transcript;
+                chatInput.focus();
+            };
+        }
+
+        micBtn.addEventListener('click', function() {
+            if (recognition) {
+                recognition.start();
+            } else {
+                alert('Speech recognition not supported in this browser.');
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Chat Bot</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #2c085f 0%, #6d1fa8 100%);
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .register-main-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            width: 100vw;
+        }
+        .register-card {
+            display: flex;
+            flex-direction: row;
+            background: rgba(44, 8, 95, 0.95);
+            border-radius: 32px;
+            box-shadow: 0 8px 32px 0 #6d1fa880;
+            padding: 0;
+            max-width: 900px;
+            width: 90vw;
+            min-height: 520px;
+            overflow: hidden;
+        }
+        .register-bot-side {
+            background: linear-gradient(120deg, #2c085f 0%, #6d1fa8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 380px;
+            min-width: 320px;
+            position: relative;
+        }
+        .register-bot-svg {
+            width: 260px;
+            height: 360px;
+            filter: drop-shadow(0 0 80px #ff4be6cc) drop-shadow(0 0 32px #fff8);
+            animation: bot-float 3.5s ease-in-out infinite alternate;
+            transition: all 0.3s ease;
+        }
+        @keyframes bot-float {
+            0% { transform: translateY(0) scale(1) rotate(0deg); }
+            50% { transform: translateY(-15px) scale(1.02) rotate(1deg); }
+            100% { transform: translateY(0) scale(1) rotate(0deg); }
+        }
+        .register-form-side {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 36px;
+        }
+        .register-title {
+            font-family: 'Orbitron', cursive;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            text-shadow: 0 2px 12px #fff7, 0 0px 24px #ff4be6aa;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .register-form {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+        .register-input-group {
+            display: flex;
+            align-items: center;
+            background: rgba(255,255,255,0.13);
+            border-radius: 22px;
+            padding: 0 14px;
+            box-shadow: 0 2px 8px #6d1fa822;
+            position: relative;
+        }
+        .register-input-group input {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: #fff;
+            font-size: 1.1rem;
+            padding: 14px 0;
+            flex: 1;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .register-input-group input::placeholder {
+            color: #e0caffcc;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .register-input-icon {
+            margin-right: 10px;
+            color: #fff;
+            opacity: 0.8;
+        }
+        .register-eye {
+            margin-left: auto;
+            cursor: pointer;
+            color: #e0caff;
+            opacity: 0.7;
+        }
+        .register-btn {
+            width: 100%;
+            padding: 14px 0;
+            border-radius: 22px;
+            background: linear-gradient(90deg, #ff4be6 15%, #6d1fa8 100%);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            margin-top: 14px;
+            margin-bottom: 8px;
+            box-shadow: 0 0 24px 0 #ff4be6cc, 0 2px 14px #ff4be655;
+            transition: background 0.2s, color 0.2s;
+            cursor: pointer;
+        }
+        .register-btn:hover {
+            background: #fff;
+            color: #ff4be6;
+        }
+        .register-links {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 1rem;
+            margin-bottom: 12px;
+            margin-top: 5px;
+        }
+        .register-links a {
+            color: #e0caff;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .register-links a:hover {
+            color: #ff4be6;
+        }
+        .register-or {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            color: #fff9;
+            font-weight: 600;
+            margin: 18px 0 10px 0;
+            font-size: 1rem;
+        }
+        .register-or span {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, #ff4be6 10%, #fff 90%);
+            margin: 0 10px;
+            opacity: 0.4;
+        }
+        .register-socials {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            gap: 22px;
+            margin-top: 8px;
+        }
+        .register-socials a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            box-shadow: 0 1.5px 8px #ff4be644;
+            transition: background 0.2s, box-shadow 0.2s;
+        }
+        .register-socials a:hover {
+            background: #ff4be6;
+            box-shadow: 0 0 16px #ff4be6cc;
+        }
+        @media (max-width: 900px) {
+            .register-card {
+                flex-direction: column;
+                max-width: 98vw;
+                min-width: 0;
+                width: 98vw;
+            }
+            .register-bot-side {
+                width: 100%;
+                min-width: 0;
+                padding: 24px 0 0 0;
+            }
+            .register-form-side {
+                padding: 32px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="register-main-container">
+        <div class="register-card">
+            <div class="register-bot-side">
+                <svg class="register-bot-svg" viewBox="0 0 440 600" fill="none">
+                    <ellipse cx="170" cy="250" rx="130" ry="170" fill="#fff" opacity="0.25" filter="url(#glow)"/>
+                    <ellipse cx="170" cy="320" rx="110" ry="140" fill="#e4d6ff"/>
+                    <ellipse cx="170" cy="150" rx="90" ry="80" fill="#fff"/>
+                    <ellipse cx="170" cy="155" rx="70" ry="45" fill="#2c085f"/>
+                    <path id="leftEye" d="M140 155 Q145 160 150 155" stroke="#ff4be6" stroke-width="5" stroke-linecap="round" fill="none">
+                        <animate attributeName="d" values="M140 155 Q145 160 150 155;M140 155 Q145 165 150 155;M140 155 Q145 160 150 155" dur="2s" repeatCount="indefinite"/>
+                    </path>
+                    <path id="rightEye" d="M190 155 Q195 160 200 155" stroke="#ff4be6" stroke-width="5" stroke-linecap="round" fill="none">
+                        <animate attributeName="d" values="M190 155 Q195 160 200 155;M190 155 Q195 165 200 155;M190 155 Q195 160 200 155" dur="2s" repeatCount="indefinite"/>
+                    </path>
+                    <ellipse cx="170" cy="65" rx="20" ry="20" fill="#fff"/>
+                    <ellipse cx="170" cy="55" rx="14" ry="14" fill="#ff4be6"/>
+                    <rect id="leftArm" x="65" y="260" width="30" height="100" rx="18" fill="#fff" transform="rotate(-20 65 260)">
+                        <animateTransform attributeName="transform" type="rotate" values="-20 65 260;-10 65 260;-20 65 260" dur="2s" repeatCount="indefinite"/>
+                    </rect>
+                    <rect id="rightArm" x="245" y="260" width="30" height="100" rx="18" fill="#fff" transform="rotate(20 245 260)">
+                        <animateTransform attributeName="transform" type="rotate" values="20 245 260;10 245 260;20 245 260" dur="2s" repeatCount="indefinite"/>
+                    </rect>
+                    <defs>
+                        <filter id="glow" x="0" y="70" width="340" height="350" filterUnits="userSpaceOnUse">
+                            <feGaussianBlur stdDeviation="36" result="coloredBlur"/>
+                            <feMerge>
+                                <feMergeNode in="coloredBlur"/>
+                                <feMergeNode in="SourceGraphic"/>
+                            </feMerge>
+                        </filter>
+                    </defs>
+                </svg>
+            </div>
+            <div class="register-form-side">
+                <div class="register-title">
+                    <i class="fas fa-volume-up"></i>
+                    Register
+                    <i class="fas fa-heart"></i>
+                </div>
+                <form class="register-form">
+                    <div class="register-input-group">
+                        <i class="fas fa-user register-input-icon"></i>
+                        <input type="text" placeholder="Username" required>
+                    </div>
+                    <div class="register-input-group">
+                        <i class="fas fa-envelope register-input-icon"></i>
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="register-input-group">
+                        <i class="fas fa-lock register-input-icon"></i>
+                        <input type="password" placeholder="Password" required id="regPassword">
+                        <i class="fas fa-eye-slash register-eye" onclick="togglePassword('regPassword', this)"></i>
+                    </div>
+                    <div class="register-input-group">
+                        <i class="fas fa-lock register-input-icon"></i>
+                        <input type="password" placeholder="Confirm Password" required id="regConfirmPassword">
+                        <i class="fas fa-eye-slash register-eye" onclick="togglePassword('regConfirmPassword', this)"></i>
+                    </div>
+                    <button type="submit" class="register-btn">Register</button>
+                </form>
+                <div class="register-links">
+                    <span>Already have an account?</span>
+                    <a href="login.html">Login here</a>
+                </div>
+                <div class="register-or"><span></span>OR<span></span></div>
+                <div class="register-socials">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-google"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function togglePassword(id, el) {
+            const input = document.getElementById(id);
+            if (input.type === 'password') {
+                input.type = 'text';
+                el.classList.remove('fa-eye-slash');
+                el.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                el.classList.remove('fa-eye');
+                el.classList.add('fa-eye-slash');
+            }
+        }
+    </script>
+</body>
+</html> 

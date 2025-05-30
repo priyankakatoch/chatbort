@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Assistant or Chat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background: linear-gradient(120deg, #2c085f 0%, #6d1fa8 100%);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Montserrat', Arial, sans-serif;
+        }
+        .select-container {
+            display: flex;
+            gap: 56px;
+            justify-content: center;
+            align-items: center;
+        }
+        .select-card {
+            background: rgba(255,255,255,0.07);
+            border-radius: 32px;
+            box-shadow: 0 4px 36px #6d1fa855;
+            padding: 44px 36px 36px 36px;
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: transform 0.22s cubic-bezier(.42,1.7,.57,.93), box-shadow 0.22s;
+            cursor: pointer;
+        }
+        .select-card:hover {
+            transform: translateY(-10px) scale(1.045) rotate(-2deg);
+            box-shadow: 0 8px 48px #ff4be655;
+        }
+        .bot-svg {
+            margin-bottom: 24px;
+            width: 120px;
+            height: 140px;
+        }
+        .select-title {
+            font-family: 'Orbitron', Arial, sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #fff;
+            letter-spacing: 1px;
+        }
+        .select-desc {
+            color: #e0caff;
+            font-size: 1rem;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        @media (max-width: 900px) {
+            .select-container {
+                flex-direction: column;
+                gap: 24px;
+            }
+            .select-card {
+                width: 92vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="select-container">
+        <!-- Assistant Card -->
+        <div class="select-card" onclick="window.location.href='assistant.html'">
+            <svg class="bot-svg" viewBox="0 0 120 140" fill="none">
+                <ellipse cx="60" cy="100" rx="52" ry="38" fill="#fff" filter="url(#glow)"/>
+                <ellipse cx="60" cy="48" rx="40" ry="40" fill="#fff"/>
+                <ellipse cx="60" cy="48" rx="28" ry="20" fill="#2c085f"/>
+                <ellipse cx="60" cy="48" rx="6" ry="6" fill="#ff4be6"/>
+                <ellipse cx="48" cy="44" rx="5" ry="2.5" fill="#ff4be6"/>
+                <ellipse cx="72" cy="44" rx="5" ry="2.5" fill="#ff4be6"/>
+                <ellipse cx="60" cy="115" rx="16" ry="8" fill="#ff4be6" opacity="0.7"/>
+                <!-- Hands -->
+                <ellipse cx="22" cy="90" rx="10" ry="5" fill="#fff" transform="rotate(-30 22 90)"/>
+                <ellipse cx="98" cy="90" rx="10" ry="5" fill="#fff" transform="rotate(30 98 90)"/>
+                <!-- Arms -->
+                <rect x="12" y="60" width="10" height="38" rx="5" fill="#fff" transform="rotate(-18 12 60)"/>
+                <rect x="98" y="60" width="10" height="38" rx="5" fill="#fff" transform="rotate(18 98 60)"/>
+                <defs>
+                    <filter id="glow" x="0" y="70" width="120" height="70" filterUnits="userSpaceOnUse">
+                        <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
+            <div class="select-title">Your Assistant</div>
+            <div class="select-desc">Get help, tips, and smart suggestions from your AI assistant.</div>
+        </div>
+        <!-- Chat With Me Card -->
+        <div class="select-card" onclick="window.location.href='chat.html'">
+            <svg class="bot-svg" viewBox="0 0 120 140" fill="none">
+                <ellipse cx="60" cy="100" rx="52" ry="38" fill="#fff" filter="url(#glow2)"/>
+                <ellipse cx="60" cy="48" rx="40" ry="40" fill="#fff"/>
+                <ellipse cx="60" cy="48" rx="28" ry="20" fill="#2c085f"/>
+                <ellipse cx="60" cy="48" rx="6" ry="6" fill="#ff4be6"/>
+                <ellipse cx="48" cy="44" rx="5" ry="2.5" fill="#ff4be6"/>
+                <ellipse cx="72" cy="44" rx="5" ry="2.5" fill="#ff4be6"/>
+                <ellipse cx="60" cy="115" rx="16" ry="8" fill="#ff4be6" opacity="0.7"/>
+                <!-- Hands -->
+                <ellipse cx="22" cy="90" rx="10" ry="5" fill="#fff" transform="rotate(-30 22 90)"/>
+                <ellipse cx="98" cy="90" rx="10" ry="5" fill="#fff" transform="rotate(30 98 90)"/>
+                <!-- Arms -->
+                <rect x="12" y="60" width="10" height="38" rx="5" fill="#fff" transform="rotate(-18 12 60)"/>
+                <rect x="98" y="60" width="10" height="38" rx="5" fill="#fff" transform="rotate(18 98 60)"/>
+                <defs>
+                    <filter id="glow2" x="0" y="70" width="120" height="70" filterUnits="userSpaceOnUse">
+                        <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                        <feMerge>
+                            <feMergeNode in="coloredBlur"/>
+                            <feMergeNode in="SourceGraphic"/>
+                        </feMerge>
+                    </filter>
+                </defs>
+            </svg>
+            <div class="select-title">Chat With Me</div>
+            <div class="select-desc">Start a direct conversation with your AI chat companion.</div>
+        </div>
+    </div>
+</body>
+</html>
